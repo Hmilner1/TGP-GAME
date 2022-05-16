@@ -24,6 +24,14 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+
+    }
+
+    public void MouseInput(Vector2 mouseInput)
+    {
+        m_MouseX = mouseInput.x * m_SensitivityX;
+        m_MouseY = mouseInput.y * m_SensitivityY;
+
         transform.Rotate(Vector3.up, m_MouseX * Time.deltaTime);
 
         m_XRotation -= m_MouseY;
@@ -31,11 +39,5 @@ public class CameraController : MonoBehaviour
         Vector3 targetRotation = transform.eulerAngles;
         targetRotation.x = m_XRotation;
         m_Camera.eulerAngles = targetRotation;
-    }
-
-    public void MouseInput(Vector2 mouseInput)
-    {
-        m_MouseX = mouseInput.x * m_SensitivityX;
-        m_MouseY = mouseInput.y * m_SensitivityY;
     }
 }

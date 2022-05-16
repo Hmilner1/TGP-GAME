@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,11 @@ using UnityEngine.AI;
 
 public class BasicAI : BaseAIInherits
 {
-    [SerializeField] public float damage = 10f;
+    [SerializeField] public float damage = 5f;
     [SerializeField] public float attackDistance = 0.5f;
     [SerializeField] public float distanceThreshold;
 
-    // Start is called before the first frame update
+    public static event Action<float> DoDamage;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("player").transform;
@@ -21,8 +22,6 @@ public class BasicAI : BaseAIInherits
     {
        ChasePlayer();
     }
-
-    // Update is called once per frame
 
     IEnumerator ChasePlayer()
     {
@@ -53,15 +52,14 @@ public class BasicAI : BaseAIInherits
             }
             yield return new WaitForSeconds(0f);
         }
-
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name == "Player")//or tag
+        if (collision.transform.tag == "player")//or tag
         {
-            collision.gameObject.GetComponent<TheHealth>().TakeDamage(damage);
+            DoDamage?.Invoke(damage);
+            Debug.Log("Collided");
         }
     }
-
 }

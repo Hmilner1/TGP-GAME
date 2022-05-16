@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,18 @@ public class InputManager : MonoBehaviour
     private CameraController m_CameraController;
     Controls_Player m_Controls;
     Controls_Player.PlayerMovementActions m_Movement;
+    private bool m_Paused = false;
 
     Vector2 m_HorizontalMovement;
     Vector2 m_MouseInput;
 
     Coroutine m_Fire;
 
+    public static event Action OnPause;
+
     private void Awake()
     {
+        m_Paused = false;
         m_Controls = new Controls_Player();
         m_Movement = m_Controls.PlayerMovement;
 
@@ -30,15 +35,21 @@ public class InputManager : MonoBehaviour
         m_Movement.Shoot.started += _ => StartFire();
         m_Movement.Shoot.canceled += _ => StopFire();
         m_Movement.Interact.started += _ => Interact();
+        m_Movement.Reload.started += _ => Reload();
+        m_Movement.Pause.started += _ => Pause();
 
         m_Movement.MouseX.performed += ctx => m_MouseInput.x = ctx.ReadValue<float>();
         m_Movement.MouseY.performed += ctx => m_MouseInput.y = ctx.ReadValue<float>();
+
     }
 
     private void Update()
     {
-        m_MovementScript.Input(m_HorizontalMovement);
-        m_CameraController.MouseInput(m_MouseInput);
+        if (m_Paused == false)
+        {
+            m_MovementScript.Input(m_HorizontalMovement);
+            m_CameraController.MouseInput(m_MouseInput);
+        }
     }
 
     private void OnEnable()
@@ -61,11 +72,29 @@ public class InputManager : MonoBehaviour
         m_ShootScript.Interact();
     }
 
+    private void Reload()
+    {
+        m_ShootScript.Reload();
+    }
+
     private void StopFire()
     {
         if (m_Fire != null)
         {
             StopCoroutine(m_Fire);
+        }
+    }
+
+    private void Pause()
+    {
+        OnPause?.Invoke();
+        if (m_Paused == true)
+        {
+            m_Paused = false;
+        }
+        else if (m_Paused == false)
+        {
+            m_Paused = true;
         }
     }
 }

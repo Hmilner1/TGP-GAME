@@ -74,10 +74,10 @@ public abstract class Weapon : MonoBehaviour
       */
 
         //reset ammo
-        if (Time.time > mFireDelay && mAmmo == 0)
-        {
-            mAmmo = mMagSize;
-        }
+      //  if (Time.time > mFireDelay && mAmmo == 0)
+       // {
+       //     mAmmo = mMagSize;
+      //  }
     }
 
     protected virtual void Shoot()
@@ -88,16 +88,21 @@ public abstract class Weapon : MonoBehaviour
             mShootSound.Play();
             mRecoilObject.ApplyRecoil();
             mMuzzleFlash.Play();
+            mAmmo--;
             RaycastHit Hit;
             if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out Hit, mRange))
             {
-                Debug.Log(mAmmo);
+                //Debug.Log(mAmmo);
                 TheHealth m_AIHit = Hit.transform.GetComponent<TheHealth>();
                 if (m_AIHit != null)
                 {
                     m_AIHit.TakeDamage(mDamage);
                 }
             }
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -108,6 +113,11 @@ public abstract class Weapon : MonoBehaviour
             Shoot();
             yield return new WaitForSeconds(mFireTime);
         }
+    }
+
+    public void Reload()
+    {
+        mAmmo = mMagSize;
     }
 
     public virtual void Interact()

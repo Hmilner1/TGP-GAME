@@ -13,6 +13,7 @@ public class CurrentWeapon: Weapon
         mFireDelay = CurrentGun.FireDelay;
         mFireTime = CurrentGun.FireRate;
         mMagSize = CurrentGun.MagSize;
+        mAmmo = CurrentGun.MagSize;
         mRange = CurrentGun.Range;
         mDamage = CurrentGun.Damage;
         //mIsFullAuto = false;
@@ -46,6 +47,7 @@ public class CurrentWeapon: Weapon
         mMagSize = CurrentGun.MagSize;
         mRange = CurrentGun.Range;
         mDamage = CurrentGun.Damage;
+        mAmmo = CurrentGun.MagSize;
         base.Interact();
     }
 
