@@ -31,7 +31,16 @@ public abstract class Weapon : MonoBehaviour
 
     //Recoil variables
     protected double mFireDelay;
-    
+
+    //recoil coordinates
+    [SerializeField] public float mRecoilX;
+    [SerializeField] public float mRecoilY;
+    [SerializeField] public float mRecoilZ;
+
+    //RecoilSettings
+    [SerializeField] public float mRecoilSpeed;
+    [SerializeField] public float mSnappiness;
+
     [SerializeField] protected ParticleSystem mMuzzleFlash;
     [SerializeField] protected AudioSource mShootSound;
 
@@ -40,69 +49,33 @@ public abstract class Weapon : MonoBehaviour
         m_Cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         //mRecoilObject = GameObject.Find("CameraRotation/CameraRecoil").GetComponent<Recoil>();
         mWeaponName = WeaponNames.None;
+        mAmmo = mMagSize;
     }
 
     protected virtual void Update()
     {
-        //Can move ammo and recol into shoot 
-        /*
-        Fire single Shot if mouse button pressed
-        if (Input.GetButtonDown("Fire1") && mAmmo > 0)
-        {
-            Shoot();
-            mRecoilObject.ApplyRecoil();
-            mAmmo--;
-        }
-        else
-        {
-            rapid fire if mouse button held
-            if (Input.GetMouseButton(0) && mIsFullAuto == true)
-            {
-                if (mAmmo > 0)
-                {
-                    mFireTime -= Time.deltaTime;
-                    if (mFireTime < 0)
-                    {
-                        Shoot();
-                        mRecoilObject.ApplyRecoil();
-                        mFireTime += mFireDelay;
-                    }
-                    mAmmo--;
-                }
-            }
-        }
-      */
-
-        //reset ammo
-      //  if (Time.time > mFireDelay && mAmmo == 0)
-       // {
-       //     mAmmo = mMagSize;
-      //  }
+       
     }
 
     protected virtual void Shoot()
     {
         if (mAmmo > 0)
         {
+            Debug.Log("Runnning");
             mShootSound.pitch = UnityEngine.Random.Range(0.5f, 0.8f);
             mShootSound.Play();
-            mRecoilObject.ApplyRecoil();
             mMuzzleFlash.Play();
-            mAmmo--;
+            ApplyRecoil();
             RaycastHit Hit;
             if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out Hit, mRange))
             {
-                //Debug.Log(mAmmo);
+                Debug.Log(mAmmo);
                 TheHealth m_AIHit = Hit.transform.GetComponent<TheHealth>();
                 if (m_AIHit != null)
                 {
                     m_AIHit.TakeDamage(mDamage);
                 }
             }
-        }
-        else
-        {
-            return;
         }
     }
 
@@ -115,14 +88,46 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    public void Reload()
-    {
-        mAmmo = mMagSize;
-    }
-
     public virtual void Interact()
     { 
         
     }
 
+    protected virtual void ApplyRecoil()
+    {
+        //Can move ammo and recol into shoot 
+
+        ////Fire single Shot if mouse button pressed
+        //if (Input.GetButtonDown("Fire1") && mAmmo > 0)
+        //{
+        //    Shoot();
+        //    mRecoilObject.ApplyRecoil();
+        //    mAmmo--;
+        //}
+        //else
+        //{
+        //    //rapid fire if mouse button held
+        //    if (Input.GetMouseButton(0) && mIsFullAuto == true)
+        //    {
+        //        if (mAmmo > 0)
+        //        {
+        //            mFireTime -= Time.deltaTime;
+        //            if (mFireTime < 0)
+        //            {
+        //                Shoot();
+        //                mRecoilObject.ApplyRecoil();
+        //                //mFireTime += mFireDelay();
+        //            }
+        //            mAmmo--;
+        //        }
+        //    }
+        //}
+
+        ////reset ammo
+        //if (Time.time > mFireDelay && mAmmo == 0)
+        //{
+        //    mAmmo = mMagSize;
+        //}
+        mRecoilObject.ApplyRecoil();
+    }
 }
