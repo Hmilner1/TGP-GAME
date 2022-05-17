@@ -17,6 +17,7 @@ public class TheHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        PointAllocationDmg();
         if(currentHealth <= 0)
         {
             Die();
@@ -26,7 +27,18 @@ public class TheHealth : MonoBehaviour
 
     private void Die()
     {
+        PointAllocation();
         Destroy(this.gameObject);
     }
+
+    private void PointAllocation()
+    {
+        PointsManager.Instance.SetPoint(PointsManager.TypesOfMobs.Zombie);
+    }
+    private void PointAllocationDmg()
+    {
+        PointsManager.Instance.SetPoint(PointsManager.TypesOfMobs.GeneralZombie);
+    }
+    
 
 }
