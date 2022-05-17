@@ -15,8 +15,15 @@ public class CurrentWeapon: Weapon
         mMagSize = CurrentGun.MagSize;
         mRange = CurrentGun.Range;
         mDamage = CurrentGun.Damage;
+
+        mRecoilX = CurrentGun.mRecoilX;
+        mRecoilY = CurrentGun.mRecoilY;
+        mRecoilX = CurrentGun.mRecoilZ;
+
+        mSnappiness = CurrentGun.mSnappiness;
+        mRecoilSpeed = CurrentGun.mRecoilSpeed;
         //mIsFullAuto = false;
-       // mWeaponName = WeaponNames.Shotgun;
+        // mWeaponName = WeaponNames.Shotgun;
     }
 
     // Update is called once per frame
@@ -46,6 +53,14 @@ public class CurrentWeapon: Weapon
         mMagSize = CurrentGun.MagSize;
         mRange = CurrentGun.Range;
         mDamage = CurrentGun.Damage;
+
+        mRecoilX = CurrentGun.mRecoilX;
+        mRecoilY = CurrentGun.mRecoilY;
+        mRecoilX = CurrentGun.mRecoilZ;
+
+        mSnappiness = CurrentGun.mSnappiness;
+        mRecoilSpeed = CurrentGun.mRecoilSpeed;
+
         base.Interact();
     }
 

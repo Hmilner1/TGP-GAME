@@ -15,6 +15,14 @@ public class Weapons : ScriptableObject
     public double FireDelay;
     public int MagSize;
 
+    public float mRecoilX;
+    public float mRecoilY;
+    public float mRecoilZ;
+
+    //RecoilSettings
+    public float mRecoilSpeed;
+    public float mSnappiness;
+
     [Header("Graphics")]
     public GameObject MuzzleFlash;
     public AudioSource ShootSound;

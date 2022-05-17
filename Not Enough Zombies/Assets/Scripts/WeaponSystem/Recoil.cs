@@ -1,29 +1,29 @@
 using UnityEngine;
+
+
 public class Recoil : MonoBehaviour
 {
     //recoil rotation
     private Vector3 mCurrentRotation;
     private Vector3 mEndRotation;
 
-    //recoil coordinates
-    [SerializeField] private float mRecoilX;
-    [SerializeField] private float mRecoilY;
-    [SerializeField] private float mRecoilZ;
+    private CurrentWeapon currWeapon;
 
-    //RecoilSettings
-    [SerializeField] private float mRecoilSpeed;
-    [SerializeField] private float mSnappiness;
+    private void Awake()
+    {
+        currWeapon = GameObject.Find("Weapon01").GetComponent<CurrentWeapon>();
+    }
 
     void FixedUpdate()
     {
         //Calculate recoil
-        mEndRotation = Vector3.Lerp(mEndRotation, Vector3.zero, mRecoilSpeed * Time.deltaTime);
-        mCurrentRotation = Vector3.Slerp(mCurrentRotation, mEndRotation, mSnappiness * Time.fixedDeltaTime);
+        mEndRotation = Vector3.Lerp(mEndRotation, Vector3.zero, currWeapon.mRecoilSpeed * Time.deltaTime);
+        mCurrentRotation = Vector3.Slerp(mCurrentRotation, mEndRotation, currWeapon.mSnappiness * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(mCurrentRotation);
     }
 
     public void ApplyRecoil()
     {
-        mEndRotation += new Vector3(mRecoilX, Random.Range(-mRecoilY, mRecoilY), Random.Range(-mRecoilZ, mRecoilZ));
+        mEndRotation += new Vector3(currWeapon.mRecoilX, Random.Range(-currWeapon.mRecoilY, currWeapon.mRecoilY), Random.Range(-currWeapon.mRecoilZ, currWeapon.mRecoilZ));
     }
 }
