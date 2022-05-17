@@ -74,7 +74,7 @@ public class InputManager : MonoBehaviour
 
     private void Reload()
     {
-        m_ShootScript.Reload();
+       // m_ShootScript.Reload();
     }
 
     private void StopFire()

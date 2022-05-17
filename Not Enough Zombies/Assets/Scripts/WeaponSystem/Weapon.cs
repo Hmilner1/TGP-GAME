@@ -33,13 +33,13 @@ public abstract class Weapon : MonoBehaviour
     protected double mFireDelay;
 
     //recoil coordinates
-    [SerializeField] public float mRecoilX;
-    [SerializeField] public float mRecoilY;
-    [SerializeField] public float mRecoilZ;
+    public float mRecoilX;
+    public float mRecoilY;
+    public float mRecoilZ;
 
     //RecoilSettings
-    [SerializeField] public float mRecoilSpeed;
-    [SerializeField] public float mSnappiness;
+    public float mRecoilSpeed;
+    public float mSnappiness;
 
     [SerializeField] protected ParticleSystem mMuzzleFlash;
     [SerializeField] protected AudioSource mShootSound;
