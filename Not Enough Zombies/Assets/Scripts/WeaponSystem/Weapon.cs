@@ -41,6 +41,9 @@ public abstract class Weapon : MonoBehaviour
     public float mRecoilSpeed;
     public float mSnappiness;
 
+    //other weapon stats
+   /// protected float mHoleTime;
+
     [SerializeField] protected ParticleSystem mMuzzleFlash;
     [SerializeField] protected AudioSource mShootSound;
 
@@ -94,40 +97,12 @@ public abstract class Weapon : MonoBehaviour
     }
 
     protected virtual void ApplyRecoil()
-    {
-        //Can move ammo and recol into shoot 
-
-        ////Fire single Shot if mouse button pressed
-        //if (Input.GetButtonDown("Fire1") && mAmmo > 0)
-        //{
-        //    Shoot();
-        //    mRecoilObject.ApplyRecoil();
-        //    mAmmo--;
-        //}
-        //else
-        //{
-        //    //rapid fire if mouse button held
-        //    if (Input.GetMouseButton(0) && mIsFullAuto == true)
-        //    {
-        //        if (mAmmo > 0)
-        //        {
-        //            mFireTime -= Time.deltaTime;
-        //            if (mFireTime < 0)
-        //            {
-        //                Shoot();
-        //                mRecoilObject.ApplyRecoil();
-        //                //mFireTime += mFireDelay();
-        //            }
-        //            mAmmo--;
-        //        }
-        //    }
-        //}
-
-        ////reset ammo
-        //if (Time.time > mFireDelay && mAmmo == 0)
-        //{
-        //    mAmmo = mMagSize;
-        //}
+    { 
         mRecoilObject.ApplyRecoil();
     }
+
+//    protected virtual void BulletHole
+//    {
+            
+//    }
 }
