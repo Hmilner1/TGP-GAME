@@ -7,21 +7,44 @@ using UnityEngine.AI;
 public class BasicAI : BaseAIInherits
 {
     [SerializeField] public float damage = 5f;
-    [SerializeField] public float attackDistance = 0.5f;
+    [SerializeField] public float attackDistance = 100.5f;
     [SerializeField] public float distanceThreshold;
+    [SerializeField] private Animator m_Animator;
+    private bool m_DoingDamage;
 
     public static event Action<float> DoDamage;
+
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("player").transform;
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(ChasePlayer());
+        m_DoingDamage = false;
     }
 
     private void Update()
     {
-       ChasePlayer();
+        ChasePlayer();
+        if (aiState == TheStates.chasing)
+        {
+            m_Animator.SetBool("isWalking", true);
+        }
+        else if (aiState != TheStates.chasing)
+        {
+            m_Animator.SetBool("isWalking", false);
+        }
+
+        if (aiState == TheStates.attack)
+        {
+            m_Animator.SetBool("isAttacking", true);
+        }
+        else if (aiState != TheStates.attack)
+        {
+            m_Animator.SetBool("isAttacking", false);
+        }
     }
+    
 
     IEnumerator ChasePlayer()
     {
@@ -35,13 +58,13 @@ public class BasicAI : BaseAIInherits
                     if (dist < attackDistance)
                     {
                         aiState = TheStates.attack;
-
                     }
                     agent.SetDestination(player.position);
                     break;
                 case TheStates.attack:
                     agent.SetDestination(transform.position);
                     dist = Vector3.Distance(player.position, transform.position);
+                    DamagePlayer();
                     if(dist > attackDistance)
                     {
                         aiState = TheStates.chasing;
@@ -54,12 +77,10 @@ public class BasicAI : BaseAIInherits
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+
+    private void DamagePlayer()
     {
-        if (collision.transform.tag == "player")//or tag
-        {
-            DoDamage?.Invoke(damage);
-            Debug.Log("Collided");
-        }
+       DoDamage?.Invoke(damage);
+       
     }
 }

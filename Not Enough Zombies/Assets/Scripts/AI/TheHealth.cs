@@ -26,6 +26,7 @@ public class TheHealth : MonoBehaviour
 
     private void Die()
     {
+
         Destroy(this.gameObject);
     }
 
