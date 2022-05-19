@@ -47,7 +47,7 @@ public abstract class Weapon : MonoBehaviour
     private void Start()
     {
         m_Cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        //mRecoilObject = GameObject.Find("CameraRotation/CameraRecoil").GetComponent<Recoil>();
+        //mRecoilObject = GameObject.Find("MainCamera/RecoilCam").GetComponent<Recoil>();
         mWeaponName = WeaponNames.None;
         mAmmo = mMagSize;
     }
