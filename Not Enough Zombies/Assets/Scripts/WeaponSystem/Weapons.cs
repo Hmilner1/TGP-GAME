@@ -27,4 +27,5 @@ public class Weapons : ScriptableObject
     public GameObject MuzzleFlash;
     public AudioSource ShootSound;
     public GameObject WeaponModle;
+    public Mesh GunMesh;
 }

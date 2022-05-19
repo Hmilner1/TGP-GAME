@@ -65,6 +65,7 @@ public abstract class Weapon : MonoBehaviour
             mShootSound.pitch = UnityEngine.Random.Range(0.5f, 0.8f);
             mShootSound.Play();
             mMuzzleFlash.Play();
+            mAmmo--;
             ApplyRecoil();
             RaycastHit Hit;
             if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out Hit, mRange))
@@ -131,13 +132,8 @@ public abstract class Weapon : MonoBehaviour
         mRecoilObject.ApplyRecoil();
     }
 
-    virtual public void ADS()
-    { 
-        
-    }
-
-    virtual public void StopADS()
-    { 
-        
+    public void Reload()
+    {
+        mAmmo = mMagSize;
     }
 }

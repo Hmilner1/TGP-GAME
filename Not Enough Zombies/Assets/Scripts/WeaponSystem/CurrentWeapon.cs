@@ -7,19 +7,19 @@ public class CurrentWeapon: Weapon
     [SerializeField]
     private Weapons CurrentGun;
     private Vector2 mSpread;
-    public Transform mDefaultPosition;
-    public Transform mADSPosition;
-    public Transform WeaponPos;
-
+    private MeshFilter m_GunMesh;
     // Start is called before the first frame update
     void Awake()
     {
+        m_GunMesh = GameObject.Find("Weapon01").GetComponent<MeshFilter>();
        // WeaponPos.position = Vector3.Lerp(WeaponPos.position, mDefaultPosition.localPosition, 10 * Time.deltaTime);
         mFireDelay = CurrentGun.FireDelay;
         mFireTime = CurrentGun.FireRate;
         mMagSize = CurrentGun.MagSize;
         mRange = CurrentGun.Range;
         mDamage = CurrentGun.Damage;
+        m_GunMesh.mesh = CurrentGun.GunMesh;
+        
 
         mRecoilX = CurrentGun.mRecoilX;
         mRecoilY = CurrentGun.mRecoilY;
@@ -65,6 +65,7 @@ public class CurrentWeapon: Weapon
 
         mSnappiness = CurrentGun.mSnappiness;
         mRecoilSpeed = CurrentGun.mRecoilSpeed;
+        m_GunMesh.mesh = CurrentGun.GunMesh;
 
         base.Interact();
     }
@@ -72,15 +73,5 @@ public class CurrentWeapon: Weapon
     public string ReturnWeaponDetails()
     {
         return CurrentGun.WeaponName;
-    }
-
-    public override void ADS()
-    {
-        WeaponPos.position = Vector3.Lerp(WeaponPos.position, mADSPosition.localPosition, 10 * Time.deltaTime);
-    }
-
-    public override void StopADS()
-    {
-        WeaponPos.position = Vector3.Lerp(WeaponPos.position, mDefaultPosition.localPosition, 10 * Time.deltaTime);
     }
 }

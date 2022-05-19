@@ -89,6 +89,22 @@ public class @Controls_Player : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ADS"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2313c19-71fe-4791-a192-c86d9bcec08b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ADSStop"",
+                    ""type"": ""Button"",
+                    ""id"": ""621585f6-a494-4ee8-bb2b-144b45ae9f83"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -234,6 +250,28 @@ public class @Controls_Player : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8d386a8-6152-41c6-a535-2e473827f042"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ADS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c47efb8e-82ea-443c-99fb-7aee7ab2b962"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ADSStop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -251,6 +289,8 @@ public class @Controls_Player : IInputActionCollection, IDisposable
         m_PlayerMovement_Interact = m_PlayerMovement.FindAction("Interact", throwIfNotFound: true);
         m_PlayerMovement_Reload = m_PlayerMovement.FindAction("Reload", throwIfNotFound: true);
         m_PlayerMovement_Pause = m_PlayerMovement.FindAction("Pause", throwIfNotFound: true);
+        m_PlayerMovement_ADS = m_PlayerMovement.FindAction("ADS", throwIfNotFound: true);
+        m_PlayerMovement_ADSStop = m_PlayerMovement.FindAction("ADSStop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -309,6 +349,8 @@ public class @Controls_Player : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_Interact;
     private readonly InputAction m_PlayerMovement_Reload;
     private readonly InputAction m_PlayerMovement_Pause;
+    private readonly InputAction m_PlayerMovement_ADS;
+    private readonly InputAction m_PlayerMovement_ADSStop;
     public struct PlayerMovementActions
     {
         private @Controls_Player m_Wrapper;
@@ -322,6 +364,8 @@ public class @Controls_Player : IInputActionCollection, IDisposable
         public InputAction @Interact => m_Wrapper.m_PlayerMovement_Interact;
         public InputAction @Reload => m_Wrapper.m_PlayerMovement_Reload;
         public InputAction @Pause => m_Wrapper.m_PlayerMovement_Pause;
+        public InputAction @ADS => m_Wrapper.m_PlayerMovement_ADS;
+        public InputAction @ADSStop => m_Wrapper.m_PlayerMovement_ADSStop;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +402,12 @@ public class @Controls_Player : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPause;
+                @ADS.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnADS;
+                @ADS.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnADS;
+                @ADS.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnADS;
+                @ADSStop.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnADSStop;
+                @ADSStop.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnADSStop;
+                @ADSStop.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnADSStop;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -389,6 +439,12 @@ public class @Controls_Player : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @ADS.started += instance.OnADS;
+                @ADS.performed += instance.OnADS;
+                @ADS.canceled += instance.OnADS;
+                @ADSStop.started += instance.OnADSStop;
+                @ADSStop.performed += instance.OnADSStop;
+                @ADSStop.canceled += instance.OnADSStop;
             }
         }
     }
@@ -404,5 +460,7 @@ public class @Controls_Player : IInputActionCollection, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnADS(InputAction.CallbackContext context);
+        void OnADSStop(InputAction.CallbackContext context);
     }
 }

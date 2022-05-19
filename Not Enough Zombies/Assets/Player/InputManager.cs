@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private Movement m_MovementScript;
     [SerializeField]
+    private ADSScript m_ADSScript;
+    [SerializeField]
     private Weapon m_ShootScript;
     [SerializeField]
     private CameraController m_CameraController;
@@ -36,8 +38,9 @@ public class InputManager : MonoBehaviour
         m_Movement.Shoot.canceled += _ => StopFire();
         m_Movement.Interact.started += _ => Interact();
         m_Movement.Reload.started += _ => Reload();
-        m_Movement.Reload.canceled += _ => StopReload();
         m_Movement.Pause.started += _ => Pause();
+        m_Movement.ADS.performed += _ => ADS();
+        m_Movement.ADSStop.performed += _ => StopADS();
 
         m_Movement.MouseX.performed += ctx => m_MouseInput.x = ctx.ReadValue<float>();
         m_Movement.MouseY.performed += ctx => m_MouseInput.y = ctx.ReadValue<float>();
@@ -75,13 +78,18 @@ public class InputManager : MonoBehaviour
 
     private void Reload()
     {
-        // m_ShootScript.Reload();
-        m_ShootScript.ADS();
+        m_ShootScript.Reload();
+        
     }
 
-    private void StopReload()
+    private void ADS()
     {
-        m_ShootScript.StopADS();
+        m_ADSScript.isAiming = true;
+    }
+
+    private void StopADS()
+    {
+        m_ADSScript.isAiming = false;
     }
 
     private void StopFire()
