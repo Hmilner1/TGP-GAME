@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
         m_Movement.Shoot.canceled += _ => StopFire();
         m_Movement.Interact.started += _ => Interact();
         m_Movement.Reload.started += _ => Reload();
+        m_Movement.Reload.canceled += _ => StopReload();
         m_Movement.Pause.started += _ => Pause();
 
         m_Movement.MouseX.performed += ctx => m_MouseInput.x = ctx.ReadValue<float>();
@@ -74,7 +75,13 @@ public class InputManager : MonoBehaviour
 
     private void Reload()
     {
-       // m_ShootScript.Reload();
+        // m_ShootScript.Reload();
+        m_ShootScript.ADS();
+    }
+
+    private void StopReload()
+    {
+        m_ShootScript.StopADS();
     }
 
     private void StopFire()

@@ -7,9 +7,14 @@ public class CurrentWeapon: Weapon
     [SerializeField]
     private Weapons CurrentGun;
     private Vector2 mSpread;
+    public Transform mDefaultPosition;
+    public Transform mADSPosition;
+    public Transform WeaponPos;
+
     // Start is called before the first frame update
     void Awake()
     {
+       // WeaponPos.position = Vector3.Lerp(WeaponPos.position, mDefaultPosition.localPosition, 10 * Time.deltaTime);
         mFireDelay = CurrentGun.FireDelay;
         mFireTime = CurrentGun.FireRate;
         mMagSize = CurrentGun.MagSize;
@@ -67,5 +72,15 @@ public class CurrentWeapon: Weapon
     public string ReturnWeaponDetails()
     {
         return CurrentGun.WeaponName;
+    }
+
+    public override void ADS()
+    {
+        WeaponPos.position = Vector3.Lerp(WeaponPos.position, mADSPosition.localPosition, 10 * Time.deltaTime);
+    }
+
+    public override void StopADS()
+    {
+        WeaponPos.position = Vector3.Lerp(WeaponPos.position, mDefaultPosition.localPosition, 10 * Time.deltaTime);
     }
 }

@@ -130,4 +130,14 @@ public abstract class Weapon : MonoBehaviour
         //}
         mRecoilObject.ApplyRecoil();
     }
+
+    virtual public void ADS()
+    { 
+        
+    }
+
+    virtual public void StopADS()
+    { 
+        
+    }
 }
