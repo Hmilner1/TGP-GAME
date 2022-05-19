@@ -16,6 +16,8 @@ public abstract class Weapon : MonoBehaviour
     }
     [SerializeField]
     private Recoil mRecoilObject;
+    [SerializeField]
+    private GameObject mBulletHole;
 
     protected Camera m_Cam;
 
@@ -72,6 +74,9 @@ public abstract class Weapon : MonoBehaviour
             RaycastHit Hit;
             if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out Hit, mRange))
             {
+                //GameObject bulletHole = Instantiate(mBulletHole, Hit.point + (Hit.normal * 0.025f), Quaternion.identity) as GameObject;
+                GameObject bulletHole = Instantiate(mBulletHole, Hit.point, Quaternion.FromToRotation(Vector3.forward, Hit.normal));
+                //bulletHole.transform.rotation = Quaternion.FromToRotation(Vector3.up, Hit.normal);
                 Debug.Log(mAmmo);
                 TheHealth m_AIHit = Hit.transform.GetComponent<TheHealth>();
                 if (m_AIHit != null)
