@@ -19,6 +19,9 @@ public abstract class Weapon : MonoBehaviour
 
     protected Camera m_Cam;
 
+    [SerializeField]
+    private GameObject mBulletHole; 
+
     //Weapon Base Stats
     protected WeaponNames mWeaponName;
     protected float mRange = 100.0f;
@@ -71,6 +74,7 @@ public abstract class Weapon : MonoBehaviour
             if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out Hit, mRange))
             {
                 Debug.Log(mAmmo);
+                GameObject bulletHole = Instantiate(mBulletHole, Hit.point, Quaternion.FromToRotation(Vector3.forward, Hit.normal));
                 TheHealth m_AIHit = Hit.transform.GetComponent<TheHealth>();
                 if (m_AIHit != null)
                 {
