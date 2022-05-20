@@ -7,6 +7,7 @@ public class Weapons : ScriptableObject
     public string WeaponName;
     public string WeaponType;
 
+
     [Header("Stats")]
     public float Damage;
     public float Range;
@@ -14,6 +15,14 @@ public class Weapons : ScriptableObject
     public float FireRate;
     public double FireDelay;
     public int MagSize;
+    public enum rarityType
+    { 
+        common,
+        uncommon,
+        rare,
+        epic
+    };
+    public rarityType rarity; 
 
     public float mRecoilX;
     public float mRecoilY;

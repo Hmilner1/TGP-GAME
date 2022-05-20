@@ -8,6 +8,8 @@ public class TheHealth : MonoBehaviour
    [SerializeField] float health = 100;
    [SerializeField]  float currentHealth;
 
+    public static event Action StartDrop;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class TheHealth : MonoBehaviour
 
     private void Die()
     {
-
+        StartDrop?.Invoke();
         Destroy(this.gameObject);
     }
 
