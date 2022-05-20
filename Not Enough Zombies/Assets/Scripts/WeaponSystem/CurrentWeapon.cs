@@ -23,7 +23,7 @@ public class CurrentWeapon: Weapon
 
         mRecoilX = CurrentGun.mRecoilX;
         mRecoilY = CurrentGun.mRecoilY;
-        mRecoilX = CurrentGun.mRecoilZ;
+        mRecoilZ = CurrentGun.mRecoilZ;
 
         mSnappiness = CurrentGun.mSnappiness;
         mRecoilSpeed = CurrentGun.mRecoilSpeed;
