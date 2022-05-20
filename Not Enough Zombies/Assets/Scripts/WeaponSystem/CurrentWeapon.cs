@@ -19,6 +19,7 @@ public class CurrentWeapon: Weapon
         mRange = CurrentGun.Range;
         mDamage = CurrentGun.Damage;
         //m_GunMesh.mesh = CurrentGun.GunMesh;
+        mName = CurrentGun.WeaponName;
         
 
         mRecoilX = CurrentGun.mRecoilX;
@@ -58,6 +59,7 @@ public class CurrentWeapon: Weapon
             mSnappiness = CurrentGun.mSnappiness;
             mRecoilSpeed = CurrentGun.mRecoilSpeed;
             m_GunMesh.mesh = CurrentGun.GunMesh;
+            Destroy(WeaponCheck.transform.gameObject);
         }
         base.Interact();
     }

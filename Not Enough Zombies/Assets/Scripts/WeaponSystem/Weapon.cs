@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.UI;
 public abstract class Weapon : MonoBehaviour
 {
     protected enum WeaponNames
@@ -24,13 +24,14 @@ public abstract class Weapon : MonoBehaviour
 
     //Weapon Base Stats
     protected WeaponNames mWeaponName;
-    protected float mRange = 100.0f;
-    protected float mDamage = 10.0f;
-    protected int mAmmo;
-    protected int mMagSize;
+    public float mRange = 100.0f;
+    public float mDamage = 10.0f;
+    public int mAmmo;
+    public int mMagSize;
     protected float mReloadTime;
     protected bool mIsFullAuto = false;
-    protected float mFireTime;
+    public float mFireTime;
+    public string mName;
 
     //Recoil variables
     protected double mFireDelay;
@@ -57,7 +58,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void Update()
     {
-       
+        
     }
 
     protected virtual void Shoot()
