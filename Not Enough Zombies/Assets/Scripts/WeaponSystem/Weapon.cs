@@ -39,7 +39,7 @@ public abstract class Weapon : MonoBehaviour
     public float mRecoilX;
     public float mRecoilY;
     public float mRecoilZ;
-
+    public GameObject bulletHole;
     //RecoilSettings
     public float mRecoilSpeed;
     public float mSnappiness;
@@ -74,7 +74,8 @@ public abstract class Weapon : MonoBehaviour
             if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out Hit, mRange))
             {
                 Debug.Log(mAmmo);
-                GameObject bulletHole = Instantiate(mBulletHole, Hit.point, Quaternion.FromToRotation(Vector3.forward, Hit.normal));
+                bulletHole = Instantiate(mBulletHole, Hit.point, Quaternion.FromToRotation(Vector3.forward, Hit.normal));
+                StartCoroutine(DespawnHole());
                 TheHealth m_AIHit = Hit.transform.GetComponent<TheHealth>();
                 if (m_AIHit != null)
                 {
@@ -91,6 +92,13 @@ public abstract class Weapon : MonoBehaviour
             Shoot();
             yield return new WaitForSeconds(mFireTime);
         }
+    }
+    
+    public IEnumerator DespawnHole()
+    {
+        Destroy(bulletHole, 5.0f);
+        yield return new WaitForSeconds(1.0f);
+
     }
 
     public virtual void Interact()
