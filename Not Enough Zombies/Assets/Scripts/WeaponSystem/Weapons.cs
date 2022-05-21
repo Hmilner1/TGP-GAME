@@ -37,4 +37,5 @@ public class Weapons : ScriptableObject
     public AudioSource ShootSound;
     public GameObject WeaponModle;
     public Mesh GunMesh;
+    public Material mGunMat;
 }

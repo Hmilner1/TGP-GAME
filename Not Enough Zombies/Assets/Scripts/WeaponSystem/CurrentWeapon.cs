@@ -8,11 +8,13 @@ public class CurrentWeapon: Weapon
     private Weapons CurrentGun;
     private Vector2 mSpread;
     private MeshFilter m_GunMesh;
+    private MeshRenderer m_MeshRenderer;
     // Start is called before the first frame update
     void Awake()
     {
         m_GunMesh = GameObject.Find("Weapon01").GetComponent<MeshFilter>();
-       // WeaponPos.position = Vector3.Lerp(WeaponPos.position, mDefaultPosition.localPosition, 10 * Time.deltaTime);
+        m_MeshRenderer = GameObject.Find("Weapon01").GetComponent<MeshRenderer>();
+        // WeaponPos.position = Vector3.Lerp(WeaponPos.position, mDefaultPosition.localPosition, 10 * Time.deltaTime);
         mFireDelay = CurrentGun.FireDelay;
         mFireTime = CurrentGun.FireRate;
         mMagSize = CurrentGun.MagSize;
@@ -59,6 +61,7 @@ public class CurrentWeapon: Weapon
             mSnappiness = CurrentGun.mSnappiness;
             mRecoilSpeed = CurrentGun.mRecoilSpeed;
             m_GunMesh.mesh = CurrentGun.GunMesh;
+            m_MeshRenderer.material = CurrentGun.mGunMat;
             Destroy(WeaponCheck.transform.gameObject);
         }
         base.Interact();
