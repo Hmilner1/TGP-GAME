@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CurrentWeapon: Weapon 
 {
+
     [SerializeField]
     private Weapons CurrentGun;
     private Vector2 mSpread;

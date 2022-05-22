@@ -5,26 +5,44 @@ using UnityEngine;
 
 public class LootDrops : MonoBehaviour
 {
-    public Transform m_ZombiePosition;
+    public List<GameObject> m_WeaponDrop = new List<GameObject>();
 
-    private void OnEnable()
+    public int[] m_LootTable =
     {
-        TheHealth.StartDrop += DropItem;
-    }
+        50,
+        30,
+        15,
+        5
+    };
 
-    private void OnDisable()
+    public int total;
+
+    public int RandomNumber;
+
+    private void Start()
     {
-        TheHealth.StartDrop -= DropItem;
-    }
-
-    public static event Action<Transform> DropSuccess;
-
-    private void DropItem()
-    {
-        int DropChance = UnityEngine.Random.Range(0, 5);
-        if (DropChance < 2)
+        foreach (var item in m_LootTable)
         {
-            DropSuccess?.Invoke(m_ZombiePosition);
+            total += item;
+        }
+        
+        RandomNumber = UnityEngine.Random.Range(0, total);
+    }
+
+    public void DropItem(Transform SpawnPosition)
+    { 
+        for (int i = 0; i < m_LootTable.Length; i++)
+        {
+            if (RandomNumber <= m_LootTable[i])
+            {
+                GameObject WeaponDrop = Instantiate(m_WeaponDrop[i]) as GameObject;
+                WeaponDrop.transform.position = SpawnPosition.position;
+                return;
+            }
+            else
+            {
+                RandomNumber -= m_LootTable[i];
+            }
         }
     }
 }

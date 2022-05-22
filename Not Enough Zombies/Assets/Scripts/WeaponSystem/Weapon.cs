@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.UI;
 public abstract class Weapon : MonoBehaviour
 {
+
     protected enum WeaponNames
     {
        None,
@@ -147,6 +148,7 @@ public abstract class Weapon : MonoBehaviour
 
     public void Reload()
     {
+
         mAmmo = mMagSize;
     }
 }

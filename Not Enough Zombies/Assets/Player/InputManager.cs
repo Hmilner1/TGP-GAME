@@ -68,17 +68,26 @@ public class InputManager : MonoBehaviour
 
     private void StartFire()
     {
-        m_Fire = StartCoroutine(m_ShootScript.RapitShoot());
+        if (m_Paused == false)
+        {
+            m_Fire = StartCoroutine(m_ShootScript.RapitShoot());
+        }
     }
 
     private void Interact()
     {
-        m_ShootScript.Interact();
+        if (m_Paused == false)
+        {
+            m_ShootScript.Interact();
+        }
     }
 
     private void Reload()
     {
-        m_ShootScript.Reload();
+        if (m_Paused == false)
+        {
+            m_ShootScript.Reload();
+        }
         
     }
 
@@ -94,9 +103,12 @@ public class InputManager : MonoBehaviour
 
     private void StopFire()
     {
-        if (m_Fire != null)
+        if (m_Paused == false)
         {
-            StopCoroutine(m_Fire);
+            if (m_Fire != null)
+            {
+                StopCoroutine(m_Fire);
+            }
         }
     }
 

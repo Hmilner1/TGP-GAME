@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -33,5 +34,20 @@ public class PauseManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    public void OnClickSettingsMenu()
+    {
+        SceneManager.LoadScene("Settings Menu",LoadSceneMode.Additive);
+    }
+
+    public void OnClickExit()
+    {
+        Application.Quit();
+    }
+
+    public void OnClickResume()
+    {
+        OnPauseMenu();
     }
 }
