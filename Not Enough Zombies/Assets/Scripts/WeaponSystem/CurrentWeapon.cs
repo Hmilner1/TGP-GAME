@@ -23,6 +23,7 @@ public class CurrentWeapon: Weapon
         mDamage = CurrentGun.Damage;
         //m_GunMesh.mesh = CurrentGun.GunMesh;
         mName = CurrentGun.WeaponName;
+        mReloadTime = CurrentGun.ReloadTime;
         
 
         mRecoilX = CurrentGun.mRecoilX;
@@ -45,6 +46,7 @@ public class CurrentWeapon: Weapon
         RaycastHit WeaponCheck;
         if (Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out WeaponCheck, 20))
         {
+            isReloading = false;
             string swapName;
             CurrentWeapon NewWeapon = WeaponCheck.transform.GetComponent<CurrentWeapon>();
             swapName = NewWeapon.ReturnWeaponDetails();
@@ -52,8 +54,10 @@ public class CurrentWeapon: Weapon
             mFireDelay = CurrentGun.FireDelay;
             mFireTime = CurrentGun.FireRate;
             mMagSize = CurrentGun.MagSize;
+            mAmmo = CurrentGun.MagSize;
             mRange = CurrentGun.Range;
             mDamage = CurrentGun.Damage;
+            mReloadTime = CurrentGun.ReloadTime;
 
             mRecoilX = CurrentGun.mRecoilX;
             mRecoilY = CurrentGun.mRecoilY;
