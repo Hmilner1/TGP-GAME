@@ -6,8 +6,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private void OnEnable() => PlayerHealth.PlayerDead += GameOver;
-    private void OnDisable() => PlayerHealth.PlayerDead -= GameOver;
+    private void OnEnable()
+    {
+        PlayerHealth.PlayerDead += GameOver;
+    }
+    private void OnDisable()
+    {
+        PlayerHealth.PlayerDead -= GameOver;
+    }
 
     private void GameOver()
     {
