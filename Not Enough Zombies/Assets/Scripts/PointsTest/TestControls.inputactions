@@ -1,0 +1,45 @@
+{
+    "name": "TestControls",
+    "maps": [
+        {
+            "name": "PlayerMovement",
+            "id": "bae046b8-86d7-4f47-b100-62679dd06d27",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "90d2f1db-22d0-4274-87ed-92ddd056e1cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ab832c97-5127-4a20-a757-be1043e4eace",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
