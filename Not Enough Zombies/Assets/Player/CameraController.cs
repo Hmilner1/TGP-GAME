@@ -29,8 +29,10 @@ public class CameraController : MonoBehaviour
 
     public void MouseInput(Vector2 mouseInput)
     {
-        m_MouseX = mouseInput.x * m_SensitivityX;
-        m_MouseY = mouseInput.y * m_SensitivityY;
+        // m_MouseX = mouseInput.x * m_SensitivityX;
+        // m_MouseY = mouseInput.y * m_SensitivityY;
+        m_MouseX = mouseInput.x * PlayerPrefs.GetFloat("SenseX");
+        m_MouseY = mouseInput.y * PlayerPrefs.GetFloat("SenseY");
 
         transform.Rotate(Vector3.up, m_MouseX * Time.deltaTime);
 

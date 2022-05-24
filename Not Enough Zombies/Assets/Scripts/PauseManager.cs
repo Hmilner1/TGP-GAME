@@ -8,10 +8,13 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     private Canvas m_PauseMenu;
+    private Canvas m_SettingsMenu;
 
     private void Start()
     {
         m_PauseMenu = GameObject.Find("PauseMenu").GetComponent<Canvas>();
+        m_SettingsMenu = GameObject.Find("SettingsMenu").GetComponent<Canvas>();
+        m_SettingsMenu.enabled = false;
         m_PauseMenu.enabled = false;
     }
 
@@ -26,6 +29,7 @@ public class PauseManager : MonoBehaviour
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = true;
+            m_SettingsMenu.enabled = false;
         }
         else if (!m_PauseMenu.enabled)
         {
@@ -38,7 +42,15 @@ public class PauseManager : MonoBehaviour
 
     public void OnClickSettingsMenu()
     {
-        SceneManager.LoadScene("Settings Menu",LoadSceneMode.Additive);
+        //SceneManager.LoadScene("Settings Menu",LoadSceneMode.Additive);
+        if (m_SettingsMenu.enabled == false)
+        {
+            m_SettingsMenu.enabled = true;
+        }
+        else if (m_SettingsMenu.enabled == true)
+        {
+            m_SettingsMenu.enabled = false;
+        }
     }
 
     public void OnClickExit()
