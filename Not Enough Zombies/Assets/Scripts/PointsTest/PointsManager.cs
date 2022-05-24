@@ -9,17 +9,19 @@ using Random = UnityEngine.Random;
 
 public class PointsManager : MonoBehaviour
 {
-    public enum TypesOfMobs
+    public enum TypesOfPoints
     {
-        GeneralZombie,
-        Zombie,
-        BigZombie,
-        SmallZombie
+        OnHitZombie,
+        OnDeathNormalZombie,
+        OnDeathBigZombie,
+        OnDeathSmallZombie
     }
 
     public static PointsManager Instance;
 
     public GameObject FloatingTextPrefab;
+    public GameObject OnHitFTP;
+    public GameObject OnDeathFTP;
     public Text pointsText;
 
     public Transform parentText;
@@ -57,38 +59,64 @@ public class PointsManager : MonoBehaviour
 
     private void ShowFloatingText()
     {
-        //Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity);
         //Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
         Vector3 offset = parentText.position + pointsPosition;
         var go = Instantiate(FloatingTextPrefab, offset, Quaternion.identity, transform);
         go.GetComponent<Text>().text = "+" + _pointsToAdd.ToString();
     }
-
-    public void SetPoint(TypesOfMobs typesOfMobs)
+    private void ShowFloatingTexts(GameObject FloatTextPrefab)
     {
-        switch (typesOfMobs)
+        //Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+        Vector3 offset = parentText.position + pointsPosition;
+        var GO = Instantiate(FloatTextPrefab, offset, Quaternion.identity, transform);
+        GO.GetComponent<Text>().text = "+" + _pointsToAdd.ToString();
+    }
+
+    public void SetPoint(TypesOfPoints typesOfPoints)
+    {
+        switch (typesOfPoints)
         {
-            case TypesOfMobs.GeneralZombie:
+            case TypesOfPoints.OnHitZombie:
             {
-                _points += 10;
+                _pointsToAdd = 10;
+                _points += _pointsToAdd;
+                if (OnHitFTP)
+                {
+                    ShowFloatingTexts(OnHitFTP);
+                }
                 pointsText.text = "SCORE: " + _points.ToString();
             }
                 break;
-            case TypesOfMobs.Zombie:
+            case TypesOfPoints.OnDeathNormalZombie:
             {
-                _points += 20;
+                _pointsToAdd = 20;
+                _points += _pointsToAdd;
+                if (OnDeathFTP)
+                {
+                    ShowFloatingTexts(OnDeathFTP);
+                }
                 pointsText.text = "SCORE: " + _points.ToString();
             }
                 break;
-            case TypesOfMobs.BigZombie:
+            case TypesOfPoints.OnDeathBigZombie:
             {
-                _points += 50;
+                _pointsToAdd = 50;
+                _points += _pointsToAdd;
+                if (FloatingTextPrefab)
+                {
+                    ShowFloatingText();
+                }
                 pointsText.text = "SCORE: " + _points.ToString();
             }
                 break;
-            case TypesOfMobs.SmallZombie:
+            case TypesOfPoints.OnDeathSmallZombie:
             {
-                _points += 15;
+                _pointsToAdd = 15;
+                _points += _pointsToAdd;
+                if (FloatingTextPrefab)
+                {
+                    ShowFloatingText();
+                }
                 pointsText.text = "SCORE: " + _points.ToString();
             }
                 break;

@@ -33,7 +33,7 @@ public class TestControlPoints : MonoBehaviour, TestControls.IPlayerMovementActi
         if (context.phase == InputActionPhase.Performed)
         {
             Debug.Log("Space Key Pressed");
-            PointsManager.Instance.AddPoint();
+            PointsManager.Instance.SetPoint(PointsManager.TypesOfPoints.OnHitZombie);
         }
     }
 }

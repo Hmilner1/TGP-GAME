@@ -33,12 +33,12 @@ public class TheHealth : MonoBehaviour
     
     private void PointAllocation()
     {
-        PointsManager.Instance.SetPoint(PointsManager.TypesOfMobs.Zombie);
+        PointsManager.Instance.SetPoint(PointsManager.TypesOfPoints.OnDeathNormalZombie);
     }
     
     private void PointAllocationDmg()
     {
-        PointsManager.Instance.SetPoint(PointsManager.TypesOfMobs.GeneralZombie);
+        PointsManager.Instance.SetPoint(PointsManager.TypesOfPoints.OnHitZombie);
     }
 
 }
