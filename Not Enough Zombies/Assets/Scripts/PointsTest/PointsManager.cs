@@ -9,6 +9,9 @@ using Random = UnityEngine.Random;
 
 public class PointsManager : MonoBehaviour
 {
+    private void OnEnable() => TheHealth.AddPoints += AddPoint;
+    private void OnDisable() => TheHealth.AddPoints -= AddPoint;
+
     public enum TypesOfPoints
     {
         OnHitZombie,

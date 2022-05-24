@@ -12,6 +12,8 @@ public class TheHealth : MonoBehaviour
    public int DropChance;
 
     public static event Action<Transform> StartDrop;
+    public static event Action AddPoints;
+
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class TheHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        AddPoints?.Invoke();
         if(currentHealth <= 0)
         {
             Die();
