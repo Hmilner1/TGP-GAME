@@ -10,6 +10,7 @@ public class CurrentWeapon: Weapon
     private Vector2 mSpread;
     private MeshFilter m_GunMesh;
     private MeshRenderer m_MeshRenderer;
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -62,7 +63,8 @@ public class CurrentWeapon: Weapon
             mRecoilX = CurrentGun.mRecoilX;
             mRecoilY = CurrentGun.mRecoilY;
             mRecoilZ = CurrentGun.mRecoilZ;
-
+            mShootSound.clip = CurrentGun.ShootSound;
+            mReloadSource.clip = CurrentGun.ReloadSound;
             mSnappiness = CurrentGun.mSnappiness;
             mRecoilSpeed = CurrentGun.mRecoilSpeed;
             m_GunMesh.mesh = CurrentGun.GunMesh;

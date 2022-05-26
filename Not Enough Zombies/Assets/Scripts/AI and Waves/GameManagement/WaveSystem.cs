@@ -16,7 +16,7 @@ public class WaveSystem : MonoBehaviour
     [SerializeField] public float timeBetweenWaves = 5f;
     [SerializeField] private float countdown = 20f;
 
-    [SerializeField] private int waveNumber = 0;
+    [SerializeField] public int waveNumber = 0;
     [SerializeField] private int MaxWaves = 20;
     [SerializeField] int xpos;
     [SerializeField] int ypos;
@@ -65,12 +65,15 @@ public class WaveSystem : MonoBehaviour
 
     void SpawnEnemy(GameObject enemyPrefab)
     {
-        Vector3 SpawnSpread = SpawnPoint[0].transform.position;
-        SpawnSpread.x += Random.Range(1, 50);
-        SpawnSpread.z += Random.Range(1, 50);
+        for (int i = 0; i < SpawnPoint.Length; i++)
+        {
+            Vector3 SpawnSpread = SpawnPoint[i].transform.position;
+            SpawnSpread.x += Random.Range(1, 50);
+            SpawnSpread.z += Random.Range(1, 50);
 
-        GameObject enemy = pool.GetObject(enemyPrefab);
-        enemy.GetComponent<NavMeshAgent>().Warp(SpawnPoint[0].transform.position);
-        Enemiesonthemap++;
+            GameObject enemy = pool.GetObject(enemyPrefab);
+            enemy.GetComponent<NavMeshAgent>().Warp(SpawnPoint[i].transform.position);
+            Enemiesonthemap++;
+        }
     }
 }

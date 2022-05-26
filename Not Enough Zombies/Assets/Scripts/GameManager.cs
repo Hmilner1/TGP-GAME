@@ -21,4 +21,23 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameOver");
     }
 
+    public void OnclickMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void OnclickExitGame()
+    {
+        Application.Quit();
+    }
+
+    public void OnClickStartGame()
+    {
+        SceneManager.LoadScene("BaseMap");
+    }
+
+    public void OnClickSettings()
+    { 
+        //add settings here if needed 
+    }
 }

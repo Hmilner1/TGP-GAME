@@ -34,8 +34,9 @@ public class Weapons : ScriptableObject
 
     [Header("Graphics")]
     public GameObject MuzzleFlash;
-    public AudioSource ShootSound;
-    public GameObject WeaponModle;
+    public AudioClip ShootSound;
+    public AudioClip ReloadSound;
+   // public GameObject WeaponModle;
     public Mesh GunMesh;
     public Material mGunMat;
 }
