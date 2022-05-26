@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     private float m_PlayerHealth;
+    private float m_PlayerHealthMax = 100f;
 
     public static event Action PlayerDead;
 
@@ -14,7 +15,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        m_PlayerHealth = 100f;
+        //m_PlayerHealth = 100f;
+        m_PlayerHealth = m_PlayerHealthMax;
+        PlayerHealthUI.Instance.SetMaxHealth((m_PlayerHealthMax));
+
     }
 
     private void Update()
@@ -28,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
     private void TakeDamage(float Amount)
     {
         m_PlayerHealth = m_PlayerHealth - Amount;
+        PlayerHealthUI.Instance.TakeDamage((Amount));
         Debug.Log(m_PlayerHealth);
     }
 
