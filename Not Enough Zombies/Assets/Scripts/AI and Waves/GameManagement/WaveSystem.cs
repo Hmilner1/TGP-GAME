@@ -20,6 +20,7 @@ public class WaveSystem : MonoBehaviour
     [SerializeField] private int MaxWaves = 20;
     [SerializeField] int xpos;
     [SerializeField] int ypos;
+    [SerializeField] private AudioSource m_WaveAudio;
 
     private void Start()
     {
@@ -60,6 +61,7 @@ public class WaveSystem : MonoBehaviour
                 }
             }
             waveNumber++;
+            m_WaveAudio.Play();
         }
     }
 
