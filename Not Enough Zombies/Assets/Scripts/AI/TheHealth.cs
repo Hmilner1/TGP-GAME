@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TheHealth : MonoBehaviour
+public class TheHealth : MonoBehaviour, IDamageable
 {
    [SerializeField] float health = 100;
    [SerializeField]  float currentHealth;
@@ -37,6 +37,9 @@ public class TheHealth : MonoBehaviour
         {
             m_DropScript.DropItem(m_ZombiePosition);
         }
-        Destroy(this.gameObject);
+        WaveSystem.Enemiesonthemap--;
+        currentHealth = health;
+        gameObject.SetActive(false);
+        //Destroy(this.gameObject);
     }
 }
