@@ -25,6 +25,22 @@ public class @TestControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TakeDamage"",
+                    ""type"": ""Button"",
+                    ""id"": ""d453b8a7-3f83-4e7b-9a4a-4bc753a59d54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""HealDamage"",
+                    ""type"": ""Button"",
+                    ""id"": ""01fa1a4e-d925-4322-ad35-13d3c0dc2625"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -36,6 +52,28 @@ public class @TestControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ae0b33d-87cb-40fb-83ab-2399b2397354"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""TakeDamage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55d66e02-89fa-42c3-93bc-19d7d5be26e8"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HealDamage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -59,6 +97,8 @@ public class @TestControls : IInputActionCollection, IDisposable
         // PlayerMovement
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Interact = m_PlayerMovement.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerMovement_TakeDamage = m_PlayerMovement.FindAction("TakeDamage", throwIfNotFound: true);
+        m_PlayerMovement_HealDamage = m_PlayerMovement.FindAction("HealDamage", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -109,11 +149,15 @@ public class @TestControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_PlayerMovement;
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Interact;
+    private readonly InputAction m_PlayerMovement_TakeDamage;
+    private readonly InputAction m_PlayerMovement_HealDamage;
     public struct PlayerMovementActions
     {
         private @TestControls m_Wrapper;
         public PlayerMovementActions(@TestControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_PlayerMovement_Interact;
+        public InputAction @TakeDamage => m_Wrapper.m_PlayerMovement_TakeDamage;
+        public InputAction @HealDamage => m_Wrapper.m_PlayerMovement_HealDamage;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -126,6 +170,12 @@ public class @TestControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInteract;
+                @TakeDamage.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnTakeDamage;
+                @TakeDamage.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnTakeDamage;
+                @TakeDamage.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnTakeDamage;
+                @HealDamage.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnHealDamage;
+                @HealDamage.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnHealDamage;
+                @HealDamage.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnHealDamage;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -133,6 +183,12 @@ public class @TestControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @TakeDamage.started += instance.OnTakeDamage;
+                @TakeDamage.performed += instance.OnTakeDamage;
+                @TakeDamage.canceled += instance.OnTakeDamage;
+                @HealDamage.started += instance.OnHealDamage;
+                @HealDamage.performed += instance.OnHealDamage;
+                @HealDamage.canceled += instance.OnHealDamage;
             }
         }
     }
@@ -149,5 +205,7 @@ public class @TestControls : IInputActionCollection, IDisposable
     public interface IPlayerMovementActions
     {
         void OnInteract(InputAction.CallbackContext context);
+        void OnTakeDamage(InputAction.CallbackContext context);
+        void OnHealDamage(InputAction.CallbackContext context);
     }
 }
