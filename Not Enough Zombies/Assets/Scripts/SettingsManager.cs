@@ -9,10 +9,11 @@ using UnityEngine.Audio;
 public class SettingsManager : MonoBehaviour
 {
     public AudioMixer m_VolumeMixer;
-    private Slider m_VolumeSlider;
-    private Slider m_SenseX;
-    private Slider m_SenseY;
-
+    [SerializeField] private Slider m_VolumeSlider;
+    [SerializeField] private Slider m_SenseX;
+    [SerializeField] private Slider m_SenseY;
+    [SerializeField] private Canvas m_SettingsCanvas;
+    
     private void Start()
     {
         m_VolumeSlider = GameObject.Find("Volume Slider").GetComponent<Slider>();
@@ -39,6 +40,10 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("SenseY", m_SenseY.value);
     }
 
+    public void OnclickClose()
+    {
+        m_SettingsCanvas.enabled = false;
+    }
 
 
 }

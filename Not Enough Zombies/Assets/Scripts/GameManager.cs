@@ -6,6 +6,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private Canvas m_SettingsMenu;
+
+    private void Start()
+    {
+        m_SettingsMenu = GameObject.Find("SettingsMenu").GetComponent<Canvas>();
+        m_SettingsMenu.enabled = false;
+    }
+
     private void OnEnable()
     {
         PlayerHealth.PlayerDead += GameOver;
@@ -37,7 +45,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnClickSettings()
-    { 
+    {
+        m_SettingsMenu.enabled = true;
         //add settings here if needed 
     }
 }
